@@ -60,4 +60,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Validate production compose
-        run: docker compose --env-file .env.example -f docker-compose.prod.yml config
+        run: docker compose -f docker-compose.prod.yml config
