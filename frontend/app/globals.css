@@ -1,0 +1,166 @@
+:root {
+  color: #17202a;
+  background: #f6f7f9;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.workspace {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: #52616f;
+  font-size: 14px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 40px;
+  line-height: 1.1;
+}
+
+.taskForm {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 16px;
+  border: 1px solid #d8dee6;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #52616f;
+  font-size: 13px;
+}
+
+.input,
+.textarea,
+.select {
+  width: 100%;
+  border: 1px solid #c7d0da;
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: #17202a;
+  background: #ffffff;
+}
+
+.textarea {
+  min-height: 42px;
+  resize: vertical;
+}
+
+.primaryButton,
+.secondaryButton,
+.dangerButton {
+  min-height: 42px;
+  border: 0;
+  border-radius: 6px;
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+.primaryButton {
+  align-self: end;
+  color: #ffffff;
+  background: #176b5b;
+}
+
+.secondaryButton {
+  color: #17202a;
+  background: #dde6ef;
+}
+
+.dangerButton {
+  color: #ffffff;
+  background: #b42318;
+}
+
+.error {
+  margin: 0 0 16px;
+  color: #b42318;
+}
+
+.taskList {
+  display: grid;
+  gap: 10px;
+}
+
+.taskItem {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 140px auto;
+  gap: 12px;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid #d8dee6;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.taskTitle {
+  margin: 0 0 4px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.taskDescription,
+.empty {
+  margin: 0;
+  color: #52616f;
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding: 24px 14px;
+  }
+
+  .header,
+  .taskForm,
+  .taskItem {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    display: grid;
+  }
+
+  .primaryButton,
+  .secondaryButton,
+  .dangerButton {
+    width: 100%;
+  }
+}
