@@ -27,7 +27,11 @@ jobs:
         run: docker push ghcr.io/dmitriyspeliy/test-ai-backend:latest
 
       - name: Build frontend image
-        run: docker build -t ghcr.io/dmitriyspeliy/test-ai-frontend:latest ./frontend
+        run: |
+          docker build \
+            --build-arg NEXT_PUBLIC_API_BASE_URL=http://80.74.31.96:8081 \
+            -t ghcr.io/dmitriyspeliy/test-ai-frontend:latest \
+            ./frontend
 
       - name: Push frontend image
         run: docker push ghcr.io/dmitriyspeliy/test-ai-frontend:latest
