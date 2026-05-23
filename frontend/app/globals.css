@@ -1,6 +1,6 @@
 :root {
-  color: #17202a;
-  background: #f6f7f9;
+  color: #25133d;
+  background: #f7f3ff;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -10,6 +10,9 @@
 
 body {
   margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(139, 92, 246, 0.16), transparent 34rem),
+    linear-gradient(180deg, #fbf9ff 0%, #f3edff 100%);
 }
 
 button,
@@ -39,44 +42,56 @@ select {
 
 .eyebrow {
   margin: 0 0 6px;
-  color: #52616f;
+  color: #6d28d9;
   font-size: 14px;
+  font-weight: 700;
 }
 
 h1 {
   margin: 0;
   font-size: 40px;
   line-height: 1.1;
+  color: #4c1d95;
 }
 
 .taskForm {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 180px auto;
   gap: 12px;
   margin-bottom: 20px;
   padding: 16px;
-  border: 1px solid #d8dee6;
+  border: 1px solid #ddd6fe;
   border-radius: 8px;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 14px 32px rgba(88, 28, 135, 0.08);
 }
 
 .field {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  color: #52616f;
+  color: #5b21b6;
   font-size: 13px;
+  font-weight: 700;
 }
 
 .input,
 .textarea,
 .select {
   width: 100%;
-  border: 1px solid #c7d0da;
+  border: 1px solid #c4b5fd;
   border-radius: 6px;
   padding: 10px 12px;
-  color: #17202a;
+  color: #25133d;
   background: #ffffff;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.16);
+  outline: none;
 }
 
 .textarea {
@@ -97,22 +112,28 @@ h1 {
 .primaryButton {
   align-self: end;
   color: #ffffff;
-  background: #176b5b;
+  background: #7c3aed;
 }
 
 .secondaryButton {
-  color: #17202a;
-  background: #dde6ef;
+  color: #5b21b6;
+  background: #ede9fe;
 }
 
 .dangerButton {
   color: #ffffff;
-  background: #b42318;
+  background: #a21caf;
+}
+
+.primaryButton:hover,
+.secondaryButton:hover,
+.dangerButton:hover {
+  filter: brightness(0.96);
 }
 
 .error {
   margin: 0 0 16px;
-  color: #b42318;
+  color: #b91c1c;
 }
 
 .taskList {
@@ -126,21 +147,44 @@ h1 {
   gap: 12px;
   align-items: center;
   padding: 16px;
-  border: 1px solid #d8dee6;
+  border: 1px solid #ddd6fe;
   border-radius: 8px;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 10px 24px rgba(88, 28, 135, 0.06);
+}
+
+.taskItemOverdue {
+  border-color: #f0abfc;
+  background: #fdf4ff;
 }
 
 .taskTitle {
   margin: 0 0 4px;
   font-size: 17px;
   font-weight: 700;
+  color: #4c1d95;
 }
 
 .taskDescription,
 .empty {
   margin: 0;
-  color: #52616f;
+  color: #6b5f7d;
+}
+
+.taskDeadline {
+  display: inline-flex;
+  margin: 10px 0 0;
+  border-radius: 999px;
+  padding: 4px 10px;
+  color: #5b21b6;
+  background: #ede9fe;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.taskDeadlineOverdue {
+  color: #86198f;
+  background: #fae8ff;
 }
 
 @media (max-width: 720px) {

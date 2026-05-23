@@ -5,6 +5,7 @@ export type Task = {
   title: string;
   description: string | null;
   status: TaskStatus;
+  deadline: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -12,4 +13,5 @@ export type Task = {
 export type CreateTaskRequest = {
   title: string;
   description: string | null;
+  deadline: string | null;
 };

@@ -1,5 +1,6 @@
 package com.example.taskmanager.task;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +20,8 @@ public class TaskService {
     }
 
     @Transactional
-    public Task create(String title, String description) {
-        return taskRepository.save(new Task(title, description));
+    public Task create(String title, String description, LocalDate deadline) {
+        return taskRepository.save(new Task(title, description, deadline));
     }
 
     @Transactional

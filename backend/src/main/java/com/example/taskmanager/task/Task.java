@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
 @Entity
@@ -31,6 +32,9 @@ public class Task {
     @Column(name = "status", nullable = false, length = 30)
     private TaskStatus status = TaskStatus.TODO;
 
+    @Column(name = "deadline")
+    private LocalDate deadline;
+
     @Column(name = "created_at", nullable = false)
     private OffsetDateTime createdAt;
 
@@ -40,9 +44,10 @@ public class Task {
     protected Task() {
     }
 
-    public Task(String title, String description) {
+    public Task(String title, String description, LocalDate deadline) {
         this.title = title;
         this.description = description;
+        this.deadline = deadline;
         this.status = TaskStatus.TODO;
     }
 
@@ -72,6 +77,10 @@ public class Task {
 
     public TaskStatus getStatus() {
         return status;
+    }
+
+    public LocalDate getDeadline() {
+        return deadline;
     }
 
     public OffsetDateTime getCreatedAt() {

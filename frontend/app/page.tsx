@@ -10,6 +10,7 @@ export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [deadline, setDeadline] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -18,7 +19,7 @@ export default function Home() {
     try {
       setTasks(await fetchTasks());
     } catch {
-      setError("Could not load tasks.");
+      setError("Не удалось загрузить задачи.");
     } finally {
       setIsLoading(false);
     }
@@ -39,13 +40,15 @@ export default function Home() {
     try {
       const task = await createTask({
         title: trimmedTitle,
-        description: description.trim() || null
+        description: description.trim() || null,
+        deadline: deadline || null
       });
       setTasks((current) => [task, ...current]);
       setTitle("");
       setDescription("");
+      setDeadline("");
     } catch {
-      setError("Could not create task.");
+      setError("Не удалось добавить задачу.");
     }
   }
 
@@ -55,7 +58,7 @@ export default function Home() {
       const updated = await updateTaskStatus(id, status);
       setTasks((current) => current.map((task) => (task.id === id ? updated : task)));
     } catch {
-      setError("Could not update task.");
+      setError("Не удалось обновить задачу.");
     }
   }
 
@@ -65,7 +68,7 @@ export default function Home() {
       await deleteTask(id);
       setTasks((current) => current.filter((task) => task.id !== id));
     } catch {
-      setError("Could not delete task.");
+      setError("Не удалось удалить задачу.");
     }
   }
 
@@ -74,19 +77,21 @@ export default function Home() {
       <section className="workspace">
         <header className="header">
           <div>
-            <p className="eyebrow">Local task manager</p>
-            <h1>Tasks</h1>
+            <p className="eyebrow">Локальный менеджер задач</p>
+            <h1>Задачи</h1>
           </div>
           <button className="secondaryButton" type="button" onClick={() => void loadTasks()}>
-            Refresh
+            Обновить
           </button>
         </header>
 
         <TaskForm
           title={title}
           description={description}
+          deadline={deadline}
           onTitleChange={setTitle}
           onDescriptionChange={setDescription}
+          onDeadlineChange={setDeadline}
           onSubmit={handleCreate}
         />
 

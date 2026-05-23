@@ -10,11 +10,11 @@ type TaskListProps = {
 
 export function TaskList({ tasks, isLoading, onStatusChange, onDelete }: TaskListProps) {
   if (isLoading) {
-    return <p className="empty">Loading tasks...</p>;
+    return <p className="empty">Загружаем задачи...</p>;
   }
 
   if (tasks.length === 0) {
-    return <p className="empty">No tasks yet.</p>;
+    return <p className="empty">Задач пока нет.</p>;
   }
 
   return (
