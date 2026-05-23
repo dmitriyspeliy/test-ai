@@ -29,6 +29,24 @@ export function createTask(payload: CreateTaskRequest): Promise<Task> {
   });
 }
 
+export async function uploadTaskAttachments(taskId: number, files: File[]): Promise<void> {
+  const formData = new FormData();
+  files.forEach((file) => formData.append("files", file));
+
+  const response = await fetch(`${API_BASE_URL}/api/tasks/${taskId}/attachments`, {
+    method: "POST",
+    body: formData
+  });
+
+  if (!response.ok) {
+    throw new Error(`Attachment upload failed with status ${response.status}`);
+  }
+}
+
+export function getAttachmentUrl(url: string): string {
+  return `${API_BASE_URL}${url}`;
+}
+
 export function updateTaskStatus(id: number, status: TaskStatus): Promise<Task> {
   return request<Task>(`/api/tasks/${id}/status`, {
     method: "PATCH",

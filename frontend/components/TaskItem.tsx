@@ -1,3 +1,4 @@
+import { getAttachmentUrl } from "../lib/api";
 import { Task, TaskStatus } from "../types/task";
 
 type TaskItemProps = {
@@ -24,6 +25,29 @@ export function TaskItem({ task, onStatusChange, onDelete }: TaskItemProps) {
           {isOverdue ? "Просрочено: " : "Срок: "}
           {formattedDeadline}
         </p>
+        {task.attachments.length > 0 ? (
+          <div className="attachmentGrid" aria-label="Фото задачи">
+            {task.attachments.map((attachment) => (
+              <a
+                className="attachmentLink"
+                href={getAttachmentUrl(attachment.url)}
+                key={attachment.id}
+                rel="noreferrer"
+                target="_blank"
+                title={`Открыть фото ${attachment.originalFileName}`}
+              >
+                <img
+                  alt={attachment.originalFileName}
+                  className="attachmentImage"
+                  src={getAttachmentUrl(attachment.url)}
+                />
+                <span className="attachmentCaption">Открыть фото</span>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <p className="attachmentEmpty">Фото не прикреплены</p>
+        )}
       </div>
       <select
         className="select"

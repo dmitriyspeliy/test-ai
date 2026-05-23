@@ -6,8 +6,17 @@ export type Task = {
   description: string | null;
   status: TaskStatus;
   deadline: string | null;
+  attachments: TaskAttachment[];
   createdAt: string;
   updatedAt: string;
+};
+
+export type TaskAttachment = {
+  id: string;
+  originalFileName: string;
+  contentType: string;
+  sizeBytes: number;
+  url: string;
 };
 
 export type CreateTaskRequest = {

@@ -56,7 +56,7 @@ h1 {
 
 .taskForm {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 180px auto;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 170px minmax(180px, 220px) auto;
   gap: 12px;
   margin-bottom: 20px;
   padding: 16px;
@@ -97,6 +97,16 @@ h1 {
 .textarea {
   min-height: 42px;
   resize: vertical;
+}
+
+.fileInput {
+  min-height: 42px;
+}
+
+.fieldHint {
+  color: #7c6c93;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .primaryButton,
@@ -185,6 +195,44 @@ h1 {
 .taskDeadlineOverdue {
   color: #86198f;
   background: #fae8ff;
+}
+
+.attachmentGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.attachmentLink {
+  display: grid;
+  gap: 4px;
+  width: 88px;
+  color: #5b21b6;
+  text-decoration: none;
+}
+
+.attachmentImage {
+  width: 88px;
+  height: 66px;
+  border: 1px solid #ddd6fe;
+  border-radius: 6px;
+  object-fit: cover;
+  background: #f5f3ff;
+}
+
+.attachmentCaption {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.attachmentEmpty {
+  margin: 10px 0 0;
+  color: #7c6c93;
+  font-size: 13px;
 }
 
 @media (max-width: 720px) {

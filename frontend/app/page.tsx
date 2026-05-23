@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { createTask, deleteTask, fetchTasks, updateTaskStatus } from "../lib/api";
+import { createTask, deleteTask, fetchTasks, updateTaskStatus, uploadTaskAttachments } from "../lib/api";
 import { Task, TaskStatus } from "../types/task";
 import { TaskForm } from "../components/TaskForm";
 import { TaskList } from "../components/TaskList";
@@ -11,8 +11,20 @@ export default function Home() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [deadline, setDeadline] = useState("");
+  const [photos, setPhotos] = useState<File[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const maxPhotoSizeBytes = 10 * 1024 * 1024;
+  const maxPhotos = 10;
+  const allowedPhotoTypes = new Set([
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+    "image/gif",
+    "image/heic",
+    "image/heif"
+  ]);
 
   async function loadTasks() {
     setError(null);
@@ -35,6 +47,11 @@ export default function Home() {
     if (!trimmedTitle) {
       return;
     }
+    const photoValidationError = validatePhotos(photos);
+    if (photoValidationError) {
+      setError(photoValidationError);
+      return;
+    }
 
     setError(null);
     try {
@@ -43,13 +60,30 @@ export default function Home() {
         description: description.trim() || null,
         deadline: deadline || null
       });
-      setTasks((current) => [task, ...current]);
+      if (photos.length > 0) {
+        await uploadTaskAttachments(task.id, photos);
+      }
+      await loadTasks();
       setTitle("");
       setDescription("");
       setDeadline("");
+      setPhotos([]);
     } catch {
-      setError("Не удалось добавить задачу.");
+      setError(photos.length > 0 ? "Не удалось загрузить фото." : "Не удалось добавить задачу.");
     }
+  }
+
+  function validatePhotos(files: File[]): string | null {
+    if (files.length > maxPhotos) {
+      return `Можно прикрепить не больше ${maxPhotos} фото.`;
+    }
+    if (files.some((file) => file.size > maxPhotoSizeBytes)) {
+      return "Файл слишком большой.";
+    }
+    if (files.some((file) => !allowedPhotoTypes.has(file.type))) {
+      return "Недопустимый формат файла.";
+    }
+    return null;
   }
 
   async function handleStatusChange(id: number, status: TaskStatus) {
@@ -89,9 +123,11 @@ export default function Home() {
           title={title}
           description={description}
           deadline={deadline}
+          photos={photos}
           onTitleChange={setTitle}
           onDescriptionChange={setDescription}
           onDeadlineChange={setDeadline}
+          onPhotosChange={setPhotos}
           onSubmit={handleCreate}
         />
 
