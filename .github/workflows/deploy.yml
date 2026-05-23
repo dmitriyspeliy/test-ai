@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   deploy:
     name: Deploy
@@ -12,6 +16,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Build backend image
+        run: docker build -t ghcr.io/dmitriyspeliy/test-ai-backend:latest ./backend
+
+      - name: Push backend image
+        run: docker push ghcr.io/dmitriyspeliy/test-ai-backend:latest
+
+      - name: Build frontend image
+        run: docker build -t ghcr.io/dmitriyspeliy/test-ai-frontend:latest ./frontend
+
+      - name: Push frontend image
+        run: docker push ghcr.io/dmitriyspeliy/test-ai-frontend:latest
 
       - name: Configure SSH
         run: |
@@ -39,4 +58,6 @@ jobs:
           ssh -i ~/.ssh/deploy_key \
             -p "${{ secrets.SERVER_PORT }}" \
             "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}" \
-            "cd '${{ secrets.DEPLOY_PATH }}' && docker compose -f docker-compose.prod.yml pull && docker compose -f docker-compose.prod.yml up -d"
+            "cd '${{ secrets.DEPLOY_PATH }}' && \
+             docker compose -f docker-compose.prod.yml pull && \
+             docker compose -f docker-compose.prod.yml up -d"
