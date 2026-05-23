@@ -9,6 +9,9 @@ frontend/out/
 # Logs
 *.log
 
+# Environment
+.env
+
 # IDE
 .idea/
 .vscode/
